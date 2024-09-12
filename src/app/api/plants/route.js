@@ -7,21 +7,33 @@ const prisma = new PrismaClient();
 
 export async function GET(req) {
   const url = new URL(req.url);
-  const searchTitle = url.searchParams.get("title");
+  const category = url.searchParams.get("category");
+  const quantity = url.searchParams.get("quantity");
   let plants = [];
+  let filters = {};
 
-  if (searchTitle) {
+  if (category) {
+    filters.category = {
+      equals: category,
+      mode: "insensitive",
+    };
+  }
+
+  if (quantity) {
+    filters.quantity = {
+      gt: 0,
+    };
+  }
+  console.log("FILTERS", filters);
+  if (filters) {
     plants = await prisma.plant.findMany({
       where: {
-        title: {
-          contains: searchTitle,
-          mode: "insensitive",
-        },
+        AND: [filters],
       },
     });
-
     return NextResponse.json(plants);
   }
+
   plants = await prisma.plant.findMany();
   if (plants.length < 1) {
     return NextResponse.json(

@@ -5,9 +5,10 @@ import PlantList from "@/components/PlantList";
 const axios = require("axios").default;
 
 export default async function Home() {
+  let plants;
   try {
     const response = await axios.get("http://localhost:3000/api/plants/");
-    plants = response.data; // Axios automatically parses JSON
+    plants = await response.data; // Axios automatically parses JSON
   } catch (error) {
     console.log("Failed to get plants", error);
   }

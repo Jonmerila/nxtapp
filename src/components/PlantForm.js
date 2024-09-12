@@ -65,6 +65,8 @@ function PlantForm({ plantToEdit, setPlantToEdit }) {
     setCategory("");
     mutate("/api/plants"); // Refresh Data
     setPlantToEdit(null);
+
+    mutate(url);
   }
 
   // If the user is not logged in, show a message to log in
