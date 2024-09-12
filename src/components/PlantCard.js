@@ -42,7 +42,7 @@ function PlantCard({ plant, setPlantToEdit }) {
   }
 
   return (
-    <div className="plant-card p-2 bg-white rounded flex gap-3 items-center w-[1278px]">
+    <div className="plant-card p-2 bg-white rounded flex gap-8 items-center w-[1278px]">
       <div className="plant-card__name w-1/4 flex justify-center">
         {plant.name}
       </div>
@@ -59,20 +59,25 @@ function PlantCard({ plant, setPlantToEdit }) {
       <p className="plant-card__detail">
         <span className="plant-card__label">Category:</span> {plant.category}
       </p>
-      <button
-        className="ml-auto m-6 bg-blue-600 text-white p-2 rounded"
-        type="button"
-        onClick={() => setPlantToEdit(plant)}
-      >
-        Edit
-      </button>
-      <button
-        className="ml-auto m-6 bg-red-600 text-white p-2 rounded"
-        type="button"
-        onClick={() => handleDelete(plant.id)}
-      >
-        Delete
-      </button>
+
+      {auth.token && (
+        <>
+          <button
+            className="ml-auto m-6 bg-blue-600 text-white p-2 rounded"
+            type="button"
+            onClick={() => setPlantToEdit(plant)}
+          >
+            Edit
+          </button>
+          <button
+            className="ml-auto m-6 bg-red-600 text-white p-2 rounded"
+            type="button"
+            onClick={() => handleDelete(plant.id)}
+          >
+            Delete
+          </button>
+        </>
+      )}
     </div>
   );
 }

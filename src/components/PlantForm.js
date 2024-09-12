@@ -3,7 +3,6 @@
 import { useAuth } from "@/context/auth";
 import { useState, useEffect } from "react";
 import useSWR, { mutate } from "swr";
-
 function PlantForm({ plantToEdit, setPlantToEdit }) {
   const auth = useAuth();
   const [name, setName] = useState("");
@@ -27,6 +26,10 @@ function PlantForm({ plantToEdit, setPlantToEdit }) {
   }, [plantToEdit]);
 
   async function handleSubmit(e) {
+    if (!auth.token) {
+      alert("You need to be logged in to Edit items");
+      return;
+    }
     e.preventDefault(); // Prevent the page from refreshing
     setError(""); // Clear previous errors
 

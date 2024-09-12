@@ -29,7 +29,7 @@ function PlantList() {
     <div className="flex justify-center flex-col items-center">
       <PlantFilter onFilterChange={(newFilters) => setFilters(newFilters)} />
 
-      <div className="plant-list">
+      <div className="plant-list flex flex-col gap-3 mt-5 mb-5">
         {filteredPlants === undefined ? (
           <p className="text-black-500 text-lg">{plants.message}</p>
         ) : (

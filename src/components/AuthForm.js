@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/auth";
 
@@ -45,22 +44,28 @@ function AuthForm() {
         name,
       }),
     });
+    console.log(response.ok);
+    console.log("RES", response);
 
     const data = await response.json();
     if (!response.ok) {
+      console.log("WAS NOT OK");
       setError(data.message);
       return;
     }
 
     if (response.ok) {
-      console.log("data", data);
+      console.log("DATA", data);
       localStorage.setItem("@library/token", data.token);
       auth.setToken(data.token);
+      if (!isLogin) {
+        alert("Account successfully registered!");
+      }
       router.push("/plants");
       return;
     }
 
-    setError("Invalid login credentials");
+    setError(data.message);
   }
 
   console.log("Auth", auth);

@@ -28,10 +28,10 @@ export async function POST(req) {
         email: body.email,
       },
     });
-    console.log(user);
+    console.log("USER", user);
 
     if (!user || user.password !== body.password || user.email !== body.email) {
-      throw new Error("Invalid Mail/password.");
+      throw new Error("user not found");
     }
 
     const token = await signJWT({
@@ -39,8 +39,11 @@ export async function POST(req) {
     });
     return NextResponse.json({ user, token });
   } catch (e) {
-    return NextResponse.json({
-      message: "Invalid Email/password.",
-    });
+    return NextResponse.json(
+      {
+        message: "Invalid Email/password.",
+      },
+      { status: 400 }
+    );
   }
 }
