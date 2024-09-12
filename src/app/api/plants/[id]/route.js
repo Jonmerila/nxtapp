@@ -28,9 +28,12 @@ export async function PUT(req, options) {
       },
     });
   } catch (e) {
-    return NextResponse.json({
-      message: `No plant found with id ${id}`,
-    });
+    return NextResponse.json(
+      {
+        message: `No plant found with id ${id}`,
+      },
+      { status: 404 }
+    );
   }
 
   const _updatedPlant = { ...updatedPlant, ...body };
@@ -71,9 +74,12 @@ export async function DELETE(req, options) {
       },
     });
   } catch (e) {
-    return NextResponse.json({
-      message: `No plant found with id ${id}`,
-    });
+    return NextResponse.json(
+      {
+        message: `No plant found with id ${id}`,
+      },
+      { status: 404 }
+    );
   }
   try {
     await prisma.plant.delete({
@@ -86,7 +92,7 @@ export async function DELETE(req, options) {
       {
         message: "Failed to delete Plant.",
       },
-      { status: 200 }
+      { status: 400 }
     );
   }
 
