@@ -68,8 +68,6 @@ function AuthForm() {
     setError(data.message);
   }
 
-  console.log("Auth", auth);
-
   return (
     <div className="h-92 w-96 mx-auto">
       <form

@@ -73,8 +73,10 @@ function PlantForm({ plantToEdit, setPlantToEdit }) {
   }
 
   return (
-    <div className="font-bold min-w-max">
-      <h1>{plantToEdit ? "Edit Plant" : "Create a new plant"}</h1>
+    <div className="font-bold min-w-max flex items-center flex-col gap-4">
+      <h1 className="bg-white p-2 rounded">
+        {plantToEdit ? "Edit Plant" : "Create a new plant"}
+      </h1>
       <form
         className="flex flex-col items-center gap-6 p-6 text-black text-lg form bg-white h-full w-full rounded"
         onSubmit={handleSubmit}
