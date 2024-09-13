@@ -19,19 +19,6 @@ function AuthForm() {
     setError("");
     console.log("INPUTS", email, password, name);
 
-    if (email === "") {
-      setError("A email is required.");
-      return;
-    }
-    if (password === "") {
-      setError("A password is required.");
-      return;
-    }
-    if (!isLogin && name === "") {
-      setError("A name is required.");
-      return;
-    }
-
     const url = isLogin ? "/api/auth/login" : "/api/auth/register";
     const response = await fetch(url, {
       method: "POST",
@@ -44,10 +31,12 @@ function AuthForm() {
         name,
       }),
     });
+
     console.log(response.ok);
     console.log("RES", response);
 
     const data = await response.json();
+    console.log("DATA", data);
     if (!response.ok) {
       console.log("WAS NOT OK");
       setError(data.message);

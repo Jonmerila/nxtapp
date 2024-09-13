@@ -8,6 +8,22 @@ export async function POST(req) {
   let body;
   try {
     body = await req.json();
+    if (!body.email) {
+      return NextResponse.json(
+        {
+          message: "Email is required.",
+        },
+        { status: 400 }
+      );
+    }
+    if (!body.password) {
+      return NextResponse.json(
+        {
+          message: "Password is required.",
+        },
+        { status: 400 }
+      );
+    }
     if (!body.email || !body.password) {
       throw new Error();
     }

@@ -8,10 +8,28 @@ export async function POST(req) {
   const body = await req.json();
   console.log(body.name);
 
-  if (!body.name || !body.email || !body.password) {
+  if (!body.email) {
     return NextResponse.json(
       {
-        message: "A valid JSON body has to be sent in",
+        message: "Email required",
+      },
+      { status: 400 }
+    );
+  }
+
+  if (!body.password) {
+    return NextResponse.json(
+      {
+        message: "Password required",
+      },
+      { status: 400 }
+    );
+  }
+
+  if (!body.name) {
+    return NextResponse.json(
+      {
+        message: "Name is required",
       },
       { status: 400 }
     );
@@ -34,25 +52,6 @@ export async function POST(req) {
       { status: 400 }
     );
   }
-  // if (uniqueUser) {
-
-  //   }
-
-  //   try {
-  //     const allUsers = await prisma.user.findUniqueOrThrow({
-  //       where: {
-  //         email: body.email,
-  //       },
-  //     });
-  //   } catch (e) {
-  //     return NextResponse.json(
-  //       {
-  //         message: "Email already exists.",
-  //         e,
-  //       },
-  //       { status: 400 }
-  //     );
-  //   }
 
   try {
     const newUser = await prisma.user.create({
